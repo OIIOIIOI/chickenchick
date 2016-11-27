@@ -44,7 +44,7 @@ public class Main : MonoBehaviour
         spawned = 0;
         roadChance = maxRoadChance;
         maxYOffset = 0.05f;
-        baseXOffset = -1.7f;
+        baseXOffset = -1.3f;
     }
 
     void FixedUpdate ()
