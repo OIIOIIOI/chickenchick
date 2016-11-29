@@ -9,6 +9,7 @@ public class Bike : MonoBehaviour
     float speedX;
 
     Main main;
+    AudioSource music;
 
     [HideInInspector]
     public float multiplier;
@@ -20,6 +21,7 @@ public class Bike : MonoBehaviour
         speedX = 0.06f;
 
         main = GameObject.Find("MainScript").GetComponent<Main>();
+        music = this.gameObject.GetComponent<AudioSource>();
     }
 
     void Update ()
@@ -55,5 +57,12 @@ public class Bike : MonoBehaviour
         }
 
         this.gameObject.transform.Translate(speedX * direction, 0f, 0f);
+
+        HandleMusic();
+    }
+
+    void HandleMusic ()
+    {
+        music.pitch = 1f + 0.1f * multiplier;
     }
 }
