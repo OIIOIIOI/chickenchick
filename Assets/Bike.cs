@@ -26,7 +26,7 @@ public class Bike : MonoBehaviour
 
     void Update ()
     {
-        if (Input.GetKeyDown(KeyCode.UpArrow))
+        if (!main.gameOver && Input.GetKeyDown(KeyCode.UpArrow))
         {
             if (tick < 10)      multiplier = 4f;
             else if (tick < 15) multiplier = 3f;
@@ -37,10 +37,10 @@ public class Bike : MonoBehaviour
         }
 
         int newDir = 0;
-        if (Input.GetKey(KeyCode.LeftArrow))    newDir--;
-        if (Input.GetKey(KeyCode.RightArrow))   newDir++;
+        if (!main.gameOver && Input.GetKey(KeyCode.LeftArrow))    newDir--;
+        if (!main.gameOver && Input.GetKey(KeyCode.RightArrow))   newDir++;
         if (newDir != 0)    direction = newDir;
-        else                direction *= 0.8f;
+        else                direction *= 0.95f;
 
         if (Input.GetKeyUp(KeyCode.Space))
             main.ThrowChicken();
@@ -59,6 +59,16 @@ public class Bike : MonoBehaviour
         this.gameObject.transform.Translate(speedX * direction, 0f, 0f);
 
         HandleMusic();
+    }
+
+    void OnCollisionEnter2D (Collision2D collision)
+    {
+        //Debug.Log(collision.gameObject.tag);
+        if (collision.gameObject.tag != "Chicken")
+        {
+            main.gameOver = true;
+            main.gameOverUI.SetActive(true);
+        }
     }
 
     void HandleMusic ()

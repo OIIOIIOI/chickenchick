@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class Main : MonoBehaviour
 {
@@ -11,6 +13,11 @@ public class Main : MonoBehaviour
     public GameObject playerPrefab;
     public GameObject chickenPrefab;
     public AudioClip throwSound;
+    public Button restartButton;
+    public GameObject gameOverUI;
+
+    [HideInInspector]
+    public bool gameOver;
 
     GameObject player;
     Bike bike;
@@ -29,6 +36,9 @@ public class Main : MonoBehaviour
     
 	void Start ()
     {
+        gameOver = false;
+        gameOverUI.SetActive(false);
+
         town = GameObject.Find("Town");
         cam = Camera.main;
 
@@ -49,6 +59,11 @@ public class Main : MonoBehaviour
         roadChance = maxRoadChance;
         maxYOffset = 0.05f;
         baseXOffset = -1.3f;
+    }
+
+    public void RestartGame ()
+    {
+        SceneManager.LoadScene(1);
     }
 
     void FixedUpdate ()
