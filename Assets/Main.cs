@@ -13,8 +13,14 @@ public class Main : MonoBehaviour
     public GameObject playerPrefab;
     public GameObject chickenPrefab;
     public AudioClip throwSound;
+    public AudioClip goodSound;
+    public AudioClip badSound;
+    public AudioClip fallSound;
     public Button restartButton;
     public GameObject gameOverUI;
+    public Text gameOverText;
+    public Image fellImg;
+    public Text scoreText;
 
     [HideInInspector]
     public bool gameOver;
@@ -33,11 +39,13 @@ public class Main : MonoBehaviour
     float tick;
     int spawned;
     int roadChance;
+    int score;
     
 	void Start ()
     {
         gameOver = false;
         gameOverUI.SetActive(false);
+        fellImg.color = Color.clear;
 
         town = GameObject.Find("Town");
         cam = Camera.main;
@@ -59,6 +67,7 @@ public class Main : MonoBehaviour
         roadChance = maxRoadChance;
         maxYOffset = 0.05f;
         baseXOffset = -1.3f;
+        score = 0;
     }
 
     public void RestartGame ()
@@ -86,6 +95,15 @@ public class Main : MonoBehaviour
         }
 
         HandleMusic();
+        
+        if (Time.timeSinceLevelLoad > 1f && Speed() > -0.01f && !gameOver)
+        {
+            sfx.PlayOneShot(fallSound);
+            gameOver = true;
+            gameOverText.text = "YOU FELL...";
+            fellImg.color = Color.black;
+            gameOverUI.SetActive(true);
+        }
     }
 
     GameObject SpawnHouse ()
@@ -113,6 +131,21 @@ public class Main : MonoBehaviour
         Vector3 pos = bike.transform.position;
         GameObject go = Instantiate(chickenPrefab, pos, Quaternion.identity) as GameObject;
         return go;
+    }
+
+    public void ChickenHouse (bool good)
+    {
+        if (good)
+        {
+            sfx.PlayOneShot(goodSound);
+            score += 76 + Random.Range(0, 18);
+        }
+        else
+        {
+            sfx.PlayOneShot(badSound);
+            score -= 39 + Random.Range(0, 23);
+        }
+        scoreText.text = score + " Pts";
     }
 
     public float Speed ()

@@ -20,10 +20,10 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000011028750656}
   - 212: {fileID: 212000011807168556}
-  - 114: {fileID: 114000010389352514}
   - 50: {fileID: 50000012477677014}
   - 58: {fileID: 58000011650596576}
-  m_Layer: 0
+  - 114: {fileID: 114000012460265574}
+  m_Layer: 10
   m_Name: House3
   m_TagString: Target
   m_Icon: {fileID: 0}
@@ -74,7 +74,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0.88}
   serializedVersion: 2
   m_Radius: 0.63
---- !u!114 &114000010389352514
+--- !u!114 &114000012460265574
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -82,7 +82,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000010609810746}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1c77ea1d755ea2438dbdbbc48e2e16f, type: 3}
+  m_Script: {fileID: 11500000, guid: 24fad784ea4274f41814c001d28d65f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!212 &212000011807168556

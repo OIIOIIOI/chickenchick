@@ -7,6 +7,7 @@ public class Bike : MonoBehaviour
     int tick;
     float direction;
     float speedX;
+    int cooldown;
 
     Main main;
     AudioSource music;
@@ -17,8 +18,9 @@ public class Bike : MonoBehaviour
     void Start ()
     {
         tick = 0;
-        multiplier = 1f;
+        multiplier = 3f;
         speedX = 0.06f;
+        cooldown = 0;
 
         main = GameObject.Find("MainScript").GetComponent<Main>();
         music = this.gameObject.GetComponent<AudioSource>();
@@ -42,8 +44,11 @@ public class Bike : MonoBehaviour
         if (newDir != 0)    direction = newDir;
         else                direction *= 0.95f;
 
-        if (Input.GetKeyUp(KeyCode.Space))
+        if (Input.GetKeyUp(KeyCode.Space) && cooldown <= 0)
+        {
             main.ThrowChicken();
+            cooldown = 30 + Random.Range(0, 20);
+        }
     }
 
     void FixedUpdate ()
@@ -56,6 +61,8 @@ public class Bike : MonoBehaviour
             if (multiplier < 0f) multiplier = 0f;
         }
 
+        cooldown--;
+
         this.gameObject.transform.Translate(speedX * direction, 0f, 0f);
 
         HandleMusic();
@@ -67,6 +74,7 @@ public class Bike : MonoBehaviour
         if (collision.gameObject.tag != "Chicken")
         {
             main.gameOver = true;
+            main.gameOverText.text = "YOUR DEAD";
             main.gameOverUI.SetActive(true);
         }
     }
