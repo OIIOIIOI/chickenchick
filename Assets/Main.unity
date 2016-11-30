@@ -157,10 +157,12 @@ MonoBehaviour:
     type: 2}
   chickenPrefab: {fileID: 1000010214482338, guid: bce4c1ebc475eae489c5075f27d3073c,
     type: 2}
+  carPrefab: {fileID: 1000010512260388, guid: c74fa75deb85e8341b7b6f2778247df7, type: 2}
   throwSound: {fileID: 8300000, guid: 7a30a09136b20e34eb38c99927c9357f, type: 3}
   goodSound: {fileID: 8300000, guid: eff2b682c70022845beeba6082ff2752, type: 3}
   badSound: {fileID: 8300000, guid: 65195c176e311a74c83e19c48457ccbc, type: 3}
   fallSound: {fileID: 8300000, guid: a2be65969d7cd91448a60abd00cca461, type: 3}
+  collisionSound: {fileID: 8300000, guid: 937dbe09f0371014a9fc41e05e1a1de3, type: 3}
   restartButton: {fileID: 1119978927}
   gameOverUI: {fileID: 1156590720}
   gameOverText: {fileID: 1767573557}

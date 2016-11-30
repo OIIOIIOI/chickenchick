@@ -12,10 +12,12 @@ public class Main : MonoBehaviour
     public GameObject roadPrefab;
     public GameObject playerPrefab;
     public GameObject chickenPrefab;
+    public GameObject carPrefab;
     public AudioClip throwSound;
     public AudioClip goodSound;
     public AudioClip badSound;
     public AudioClip fallSound;
+    public AudioClip collisionSound;
     public Button restartButton;
     public GameObject gameOverUI;
     public Text gameOverText;
@@ -45,7 +47,7 @@ public class Main : MonoBehaviour
     {
         gameOver = false;
         gameOverUI.SetActive(false);
-        fellImg.color = Color.clear;
+        //fellImg.color = Color.clear;
 
         town = GameObject.Find("Town");
         cam = Camera.main;
@@ -94,6 +96,9 @@ public class Main : MonoBehaviour
             tick = newObject.GetComponent<SpriteRenderer>().sprite.bounds.size.y;
         }
 
+        if (Random.Range(0, 200) == 0)
+            SpawnCar();
+
         HandleMusic();
         
         if (Time.timeSinceLevelLoad > 1f && Speed() > -0.01f && !gameOver)
@@ -104,6 +109,15 @@ public class Main : MonoBehaviour
             fellImg.color = Color.black;
             gameOverUI.SetActive(true);
         }
+    }
+
+    GameObject SpawnCar ()
+    {
+        float xOffset = Random.Range(-1f, 1f);
+        float yOffset = Random.Range(-maxYOffset, maxYOffset);
+        Vector3 pos = new Vector3(xOffset, cam.orthographicSize + yOffset, 0f);
+        GameObject go = Instantiate(carPrefab, pos, Quaternion.identity) as GameObject;
+        return go;
     }
 
     GameObject SpawnHouse ()
@@ -123,6 +137,11 @@ public class Main : MonoBehaviour
         Vector3 pos = new Vector3(baseXOffset, cam.orthographicSize, spawned / 10f);
         GameObject go = Instantiate(roadPrefab, pos, Quaternion.identity, town.transform) as GameObject;
         return go;
+    }
+
+    public void PlayCollision ()
+    {
+        sfx.PlayOneShot(collisionSound);
     }
 
     public GameObject ThrowChicken ()

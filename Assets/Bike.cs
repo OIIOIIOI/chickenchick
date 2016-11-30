@@ -73,6 +73,7 @@ public class Bike : MonoBehaviour
         //Debug.Log(collision.gameObject.tag);
         if (collision.gameObject.tag != "Chicken")
         {
+            main.PlayCollision();
             main.gameOver = true;
             main.gameOverText.text = "YOUR DEAD";
             main.gameOverUI.SetActive(true);
